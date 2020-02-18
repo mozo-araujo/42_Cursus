@@ -6,22 +6,18 @@
 /*   By: maraujo- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 10:08:07 by maraujo-          #+#    #+#             */
-/*   Updated: 2020/02/17 16:50:13 by maraujo-         ###   ########.fr       */
+/*   Updated: 2020/02/18 16:06:10 by maraujo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int				ft_count_digits(int num)
+static	unsigned	ft_count_digits(unsigned int n)
 {
-	int n;
-	int size;
+	unsigned int size;
 
-	n = num;
-	size = 0;
-	if (n <= 0)
-		size++;
-	while (n)
+	size = 1;
+	while (n >= 10)
 	{
 		size++;
 		n = n / 10;
@@ -29,39 +25,29 @@ static	int				ft_count_digits(int num)
 	return (size);
 }
 
-static	unsigned	int	ft_neg(int num, unsigned int *n)
+char				*ft_itoa(int n)
 {
-	if (num < 0)
-		*n = -num;
-	else
-		*n = num;
-	return (*n);
-}
-
-char					*ft_itoa(int num)
-{
-	int				i;
-	int				rem;
-	int				size;
-	unsigned int	n;
+	unsigned int	i;
+	unsigned int	size;
+	unsigned int	num;
 	char			*p;
 
+	if (n < 0)
+		num = (unsigned int)(n * -1);
+	else
+		num = (unsigned int)n;
+	size = n < 0 ? ft_count_digits(num) + 1 : ft_count_digits(num);
 	i = 0;
-	size = ft_count_digits(num);
-	if (!(p = malloc(size + 1)))
+	if (!(p = (char*)malloc(size + 1)))
 		return (NULL);
-	if (num == 0)
-		p[i++] = '0';
-	n = ft_neg(num, &n);
-	while (n)
+	p[i] = n < 0 ? '-' : 0;
+	i = size - 1;
+	while (num >= 10)
 	{
-		rem = n % 10;
-		p[i++] = rem + '0';
-		n = n / 10;
+		p[i--] = (char)(num % 10 + '0');
+		num = num / 10;
 	}
-	if (num < 0)
-		p[i++] = '-';
-	p[i] = '\0';
-	ft_strrev(p);
+	p[i] = (char)(num % 10 + '0');
+	p[size] = '\0';
 	return (p);
 }
