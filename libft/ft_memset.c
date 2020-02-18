@@ -6,18 +6,18 @@
 /*   By: maraujo- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 10:21:11 by maraujo-          #+#    #+#             */
-/*   Updated: 2020/01/31 10:22:59 by maraujo-         ###   ########.fr       */
+/*   Updated: 2020/02/17 15:53:55 by maraujo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *ptr, int c, size_t n)
+void	*ft_memset(void *b, int c, size_t len)
 {
 	char *p;
 
-	p = ptr;
-	while (n--)
+	p = b;
+	while (len--)
 		*p++ = c;
-	return (ptr);
+	return (b);
 }

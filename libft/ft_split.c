@@ -6,7 +6,7 @@
 /*   By: maraujo- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 10:56:11 by maraujo-          #+#    #+#             */
-/*   Updated: 2020/02/13 20:24:18 by maraujo-         ###   ########.fr       */
+/*   Updated: 2020/02/18 15:22:23 by maraujo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,19 @@
 static	size_t	ft_get_words(char const *s, char c)
 {
 	size_t words;
+	size_t i;
 
+	i = 0;
 	words = 0;
-	if (*s != c)
+	while (s[i] && s[i] == c)
+		i++;
+	while (s[i])
 	{
+		while (s[i] && s[i] != c)
+			i++;
 		words++;
-		s++;
-	}
-	while (*s)
-	{
-		if (*s == c && *(s + 1) != c && *(s + 1))
-			words++;
-		s++;
+		while (s[i] && s[i] == c)
+			i++;
 	}
 	return (words);
 }
@@ -61,19 +62,21 @@ char			**ft_split(char const *s, char c)
 	size_t		words;
 	size_t		i;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	words = ft_get_words(s, c);
-	if (!(s_words = malloc((words * sizeof(char*)) + 1)))
+	if (!(s_words = malloc((words + 1) * sizeof(char*))))
 		return (NULL);
 	while (i < words)
 	{
 		s = ft_next_word(s, c);
-		if (!(s_words[i] = malloc((ft_word_size(s, c) * sizeof(char)))))
+		s_words[i] = ft_substr(s, 0, ft_word_size(s, c));
+		if (!s_words[i])
 		{
 			ft_free_all(s_words, i);
 			return (NULL);
 		}
-		ft_strlcpy(s_words[i], s, (ft_word_size(s, c) + 1));
 		i++;
 		s += ft_word_size(s, c);
 	}

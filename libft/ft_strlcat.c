@@ -6,7 +6,7 @@
 /*   By: maraujo- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:25:10 by maraujo-          #+#    #+#             */
-/*   Updated: 2020/02/06 10:10:23 by maraujo-         ###   ########.fr       */
+/*   Updated: 2020/02/17 15:46:30 by maraujo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ static size_t	ft_strnlen(char *str, size_t max)
 	return (len);
 }
 
-size_t			ft_strlcat(char *dst, const char *src, size_t size)
+size_t			ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	srclen;
 	size_t	dstlen;
 
 	srclen = ft_strlen(src);
-	dstlen = ft_strnlen(dst, size);
-	if (dstlen == size)
-		return (srclen + size);
-	if (srclen < (size - dstlen))
+	dstlen = ft_strnlen(dst, dstsize);
+	if (dstlen == dstsize)
+		return (srclen + dstsize);
+	if (srclen < (dstsize - dstlen))
 		ft_memcpy(dst + dstlen, src, (srclen + 1));
 	else
 	{
-		ft_memcpy(dst + dstlen, src, (size - 1));
-		dst[size - 1] = '\0';
+		ft_memcpy(dst + dstlen, src, (dstsize - 1));
+		dst[dstsize - 1] = '\0';
 	}
 	return (dstlen + srclen);
 }

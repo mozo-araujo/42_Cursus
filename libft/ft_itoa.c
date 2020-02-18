@@ -6,7 +6,7 @@
 /*   By: maraujo- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 10:08:07 by maraujo-          #+#    #+#             */
-/*   Updated: 2020/02/06 10:55:33 by maraujo-         ###   ########.fr       */
+/*   Updated: 2020/02/17 16:50:13 by maraujo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char					*ft_itoa(int num)
 
 	i = 0;
 	size = ft_count_digits(num);
-	if (!(p = malloc(size)))
+	if (!(p = malloc(size + 1)))
 		return (NULL);
 	if (num == 0)
 		p[i++] = '0';

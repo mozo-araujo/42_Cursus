@@ -6,7 +6,7 @@
 /*   By: maraujo- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:46:41 by maraujo-          #+#    #+#             */
-/*   Updated: 2020/02/13 20:25:20 by maraujo-         ###   ########.fr       */
+/*   Updated: 2020/02/17 16:49:03 by maraujo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,40 +20,37 @@ static	size_t	ft_is_set(char c, char const *set)
 	return (0);
 }
 
-static	size_t	ft_get_size(char const *s1, char const *set)
+static	char	*ft_null(char *p)
 {
-	size_t size;
-
-	size = 0;
-	while (*s1)
-		if (!ft_is_set(*s1++, set))
-			size++;
-	return (size);
+	if (!(p = malloc(1)))
+		return (NULL);
+	p[0] = '\0';
+	return (p);
 }
 
 char			*ft_strtrim(char const *s1, char const *set)
 {
 	char	*p;
 	size_t	i;
+	size_t	start;
+	size_t	end;
 
 	if (!s1 || !set)
 		return (NULL);
-	if (!(ft_get_size(s1, set)))
-	{
-		if (!(p = malloc(1)))
-			return (NULL);
-		p[0] = '\0';
-		return (p);
-	}
-	if (!(p = malloc(ft_get_size(s1, set) + 1)))
+	start = 0;
+	while (s1[start] && ft_is_set(s1[start], set))
+		start++;
+	p = NULL;
+	if (start == ft_strlen(s1))
+		return (ft_null(p));
+	end = ft_strlen(s1) - 1;
+	while (ft_is_set(s1[end], set))
+		end--;
+	if (!(p = malloc(end - start + 2)))
 		return (NULL);
 	i = 0;
-	while (*s1)
-	{
-		if (!(ft_is_set(*s1, set)))
-			p[i++] = *s1;
-		s1++;
-	}
+	while (start <= end)
+		p[i++] = s1[start++];
 	p[i] = '\0';
 	return (p);
 }

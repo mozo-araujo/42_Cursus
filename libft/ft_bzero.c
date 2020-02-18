@@ -6,17 +6,17 @@
 /*   By: maraujo- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 09:51:15 by maraujo-          #+#    #+#             */
-/*   Updated: 2020/01/31 11:41:32 by maraujo-         ###   ########.fr       */
+/*   Updated: 2020/02/17 15:41:49 by maraujo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *ptr, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
 	char *p;
 
-	p = ptr;
+	p = s;
 	while (n--)
 		*p++ = 0;
 }
