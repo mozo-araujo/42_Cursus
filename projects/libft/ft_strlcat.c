@@ -1,30 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maraujo- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/27 09:55:02 by maraujo-          #+#    #+#             */
-/*   Updated: 2020/02/17 17:52:33 by maraujo-         ###   ########.fr       */
+/*   Created: 2020/02/19 14:55:22 by maraujo-          #+#    #+#             */
+/*   Updated: 2020/02/19 15:49:19 by maraujo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+static	size_t	ft_strnlen(char *str, size_t max)
+{
+	size_t	len;
+
+	len = 0;
+	while (len < max)
+	{
+		if (!str[len])
+			break ;
+		len++;
+	}
+	return (len);
+}
+
+size_t			ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	srclen;
+	size_t	dstlen;
 
-	if (!dst || !src)
-		return (0);
 	srclen = ft_strlen(src);
-	if (srclen + 1 < dstsize)
-		ft_memcpy(dst, src, srclen + 1);
-	else if (dstsize)
+	dstlen = ft_strnlen(dst, dstsize);
+	if (dstlen == dstsize)
+		return (srclen + dstsize);
+	if (srclen < (dstsize - dstlen))
+		ft_memcpy(dst + dstlen, src, (srclen + 1));
+	else
 	{
-		ft_memcpy(dst, src, dstsize - 1);
+		ft_memcpy(dst + dstlen, src, (dstsize - 1));
 		dst[dstsize - 1] = '\0';
 	}
-	return (srclen);
+	return (dstlen + srclen);
 }

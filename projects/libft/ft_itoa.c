@@ -6,11 +6,12 @@
 /*   By: maraujo- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 10:08:07 by maraujo-          #+#    #+#             */
-/*   Updated: 2020/02/18 16:06:10 by maraujo-         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:32:11 by maraujo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 static	unsigned	ft_count_digits(unsigned int n)
 {
@@ -19,8 +20,8 @@ static	unsigned	ft_count_digits(unsigned int n)
 	size = 1;
 	while (n >= 10)
 	{
-		size++;
 		n = n / 10;
+		size++;
 	}
 	return (size);
 }
@@ -36,18 +37,19 @@ char				*ft_itoa(int n)
 		num = (unsigned int)(n * -1);
 	else
 		num = (unsigned int)n;
-	size = n < 0 ? ft_count_digits(num) + 1 : ft_count_digits(num);
+	size = ft_count_digits(num);
 	i = 0;
-	if (!(p = (char*)malloc(size + 1)))
+	if (!(p = (char*)malloc(sizeof(char) * (size + 1 + (n < 0 ? 1 : 0)))))
 		return (NULL);
-	p[i] = n < 0 ? '-' : 0;
+	if (n < 0 && (p[i] = '-'))
+		size++;
 	i = size - 1;
 	while (num >= 10)
 	{
-		p[i--] = (char)(num % 10 + '0');
-		num = num / 10;
+		p[i--] = (char)(num % 10 + 48);
+		num /= 10;
 	}
-	p[i] = (char)(num % 10 + '0');
+	p[i] = (char)(num % 10 + 48);
 	p[size] = '\0';
 	return (p);
 }

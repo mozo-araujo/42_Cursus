@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maraujo- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/30 10:31:16 by maraujo-          #+#    #+#             */
-/*   Updated: 2020/02/17 17:52:48 by maraujo-         ###   ########.fr       */
+/*   Created: 2020/02/19 14:52:05 by maraujo-          #+#    #+#             */
+/*   Updated: 2020/02/19 14:55:06 by maraujo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	void	*ft_alloc_zeros(size_t size)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	void	*mem;
+	size_t	srclen;
 
-	if (!(mem = malloc(size)))
-		return (NULL);
-	ft_bzero(mem, size);
-	return (mem);
-}
-
-char			*ft_strmapi(char const *s, char (*f)(unsigned int, char))
-{
-	unsigned int	i;
-	char			*p;
-
-	if (!*s || !(p = ft_alloc_zeros(ft_strlen(s) + 1)))
-		return (NULL);
-	i = -1;
-	while (s[++i])
-		p[i] = f(i, s[i]);
-	p[i] = '\0';
-	return (p);
+	if (!dst || !src)
+		return (0);
+	srclen = ft_strlen(src);
+	if (srclen + 1 < dstsize)
+		ft_memcpy(dst, src, srclen + 1);
+	else if (dstsize)
+	{
+		ft_memcpy(dst, src, dstsize - 1);
+		dst[dstsize - 1] = '\0';
+	}
+	return (srclen);
 }
