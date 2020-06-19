@@ -6,11 +6,11 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 17:19:51 by maraujo-          #+#    #+#             */
-/*   Updated: 2020/06/19 10:38:44 by maraujo-         ###   ########.fr       */
+/*   Updated: 2020/06/19 10:39:44 by maraujo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static void		ft_strfree(char **str)
 {
